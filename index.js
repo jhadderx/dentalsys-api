@@ -3,7 +3,7 @@ const cors = require('cors');
 const routerApi = require('./routes');
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.use(express.json());
 

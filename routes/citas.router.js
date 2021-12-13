@@ -62,19 +62,15 @@ router.post('/', async(req, res) =>{
 
   const values = {
     ci: req.body.ci,
-    direccion: req.body.direccion,
     nombre: req.body.nombre,
-    apellido_paterno: req.body.apellido_paterno,
-    apellido_materno: req.body.apellido_materno,
-    telefono_fijo: req.body.telefono_fijo,
+    apellidos: req.body.apellidos,
     whatsapp: req.body.whatsapp,
     razon: req.body.razon,
     descripcion: req.body.descripcion,
-    fecha: req.body.fecha,
-    hora: req.body.hora,
+    fecha_hora: req.body.fecha_hora,
     dentista_id: req.body.dentista_id,
-    StatementType: req.body.StatementType,
-    idupdate: req.body.idupdate
+    StatementType: "insert",
+    idupdate: 0
   };
 
   service.create(values, (err, data) => {
@@ -83,9 +79,15 @@ router.post('/', async(req, res) =>{
         message:
           err.message || "Algo salió mal"
       });
-    else res.send(data);
+    else res.json({status: 'ok', message: 'muy gueno', data: data});
   });
-})
+});
+
+
+router.post('/prueba', async(req, res) =>{
+  res.json({status: 'ok', message: 'muy gueno'});
+  console.log("ver esto", req.body);
+});
 
 router.patch('/:id', async(req, res) =>{
   if (!req.body) {
@@ -96,16 +98,12 @@ router.patch('/:id', async(req, res) =>{
 
   const values = {
     ci: req.body.ci,
-    direccion: req.body.direccion,
     nombre: req.body.nombre,
-    apellido_paterno: req.body.apellido_paterno,
-    apellido_materno: req.body.apellido_materno,
-    telefono_fijo: req.body.telefono_fijo,
+    apellidos: req.body.apellidos,
     whatsapp: req.body.whatsapp,
     razon: req.body.razon,
     descripcion: req.body.descripcion,
-    fecha: req.body.fecha,
-    hora: req.body.hora,
+    fecha_hora: req.body.fecha_hora,
     dentista_id: req.body.dentista_id,
     StatementType: req.body.StatementType,
     idupdate: req.body.idupdate
@@ -122,7 +120,7 @@ router.patch('/:id', async(req, res) =>{
 
 })
 
-router.delete('/:id', async(req, res) =>{
+router.delete('/x/:id', async(req, res) =>{
   service.remove(req.params.id, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
@@ -135,6 +133,22 @@ router.delete('/:id', async(req, res) =>{
         });
       }
     } else res.send({ message: `Excelente` });
+  });
+})
+
+router.delete('/:id', async(req, res) =>{
+  service.remove(req.params.id, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `No se encontró el id ${req.params.id}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Algo salió mal al encontrar" + req.params.id
+        });
+      }
+    } else res.send({status: 'ok', message: 'muy gueno', data: data});
   });
 })
 

@@ -1,6 +1,6 @@
 const faker = require('faker');
 const connection = require('../database/database');
-class CitasServices {
+class SeguimientoServices {
 
   constructor() {
     this.citas = [];
@@ -52,7 +52,7 @@ class CitasServices {
 
 
   create = (newValues, result) => {
-    connection.query("CALL dentalsys.solicita_cita_crud(?,?,?,?,?,?,?,?,?,?)", [newValues.ci, newValues.nombre, newValues.apellidos, newValues.whatsapp, newValues.razon, newValues.descripcion, newValues.fecha_hora, newValues.dentista_id, newValues.StatementType, newValues.idupdate], (err, res) => {
+    connection.query("INSERT INTO planes_tratamiento (fecha, observacion, prescripcion, estado, cuenta, saldo, diagnostico, nro_historia, dentista_id) VALUES (?)", newValues, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -77,7 +77,7 @@ class CitasServices {
   };
 
   remove = (id, result) => {
-    connection.query("CALL solicita_cita_crud( 0, '', '', '', '', 0, 0, '', 'DELETE', ?)", id, (err, res) => {
+    connection.query("CALL dentalsys.solicita_cita_crud( 0, '', '', '', '', 0, 0, '', '', '', '', 0, 'DELETE', ?)", id, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
@@ -95,4 +95,4 @@ class CitasServices {
   };
 
 }
-module.exports = CitasServices;
+module.exports = SeguimientoServices;
