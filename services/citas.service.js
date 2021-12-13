@@ -7,7 +7,7 @@ class CitasServices {
   }
 
   getAll = result => {
-    connection.query("SELECT * FROM cita_v_calendar", (err, res) => {
+    connection.query("SELECT * FROM citas_v", (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
