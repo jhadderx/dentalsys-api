@@ -9,7 +9,7 @@ app.use(express.json());
 
 /* Solucionando error de cors y agregando limitaciones para puertos */
 
-/* const whiteList = ['http://localhost:3000','http://localhost:4200'];
+const whiteList = ['http://localhost:3000','http://localhost:4200'];
 const options = {
   origin: (origin, callback) => {
     if (whiteList.includes(origin) || !origin) {
@@ -18,10 +18,10 @@ const options = {
       callback(new Error('no permitido'))
     }
   }
-} */
+}
 
-/* app.use(cors(options)); */
-app.use(cors());
+app.use(cors(options));
+/* app.use(cors()); */
 /* ... */
 
 app.get('/', (req, res) => {
