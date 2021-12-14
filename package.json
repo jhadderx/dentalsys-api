@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "netlify-lambda build express",
+    "start": "nodemon server-local.js",
     "dev": "nodemon index.js",
-    "start": "node index.js",
-    "lint": "eslint",
-    "build": "netlify-lambda build express"
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
