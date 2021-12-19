@@ -3,13 +3,13 @@ const cors = require('cors');
 const routerApi = require('./routes');
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
 /* Solucionando error de cors y agregando limitaciones para puertos */
 
-const whiteList = ['http://localhost:3000','http://localhost:4200'];
+const whiteList = ['http://localhost:8080', 'http://localhost:3000','http://localhost:4200', 'https://myapp.co'];
 const options = {
   origin: (origin, callback) => {
     if (whiteList.includes(origin) || !origin) {
@@ -21,8 +21,6 @@ const options = {
 }
 
 app.use(cors(options));
-/* app.use(cors()); */
-/* ... */
 
 app.get('/', (req, res) => {
   res.send('Run express server');
